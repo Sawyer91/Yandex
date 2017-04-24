@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="com.example.dmitriy.yandex.MainActivity"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/lang0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Русский"
+            android:layout_gravity="top|left"/>
+
+        <Button
+            android:id="@+id/lang1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Английский"
+            android:layout_gravity="top|right"
+            />
+    </FrameLayout>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/translate_box"
+        android:layout_width="match_parent"
+        android:layout_height="142dp"
+        android:hint="Введите текст"
+        android:textAlignment="center"
+        android:textSize="22sp" />
+</FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/translate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Перевести"
+            android:textSize="22sp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/result_json"
+                android:layout_width="356dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.82"
+                android:hint="перевод"
+
+                android:textSize="24dp" />
+
+        </ScrollView>
+
+    </FrameLayout>
+
+
+</LinearLayout>
