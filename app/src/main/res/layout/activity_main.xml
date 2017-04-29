@@ -13,34 +13,34 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1">
 
-        <Button
+        <Spinner
             android:id="@+id/lang0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Русский"
             android:layout_gravity="top|left"/>
 
-        <Button
+        <Spinner
             android:id="@+id/lang1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Английский"
             android:layout_gravity="top|right"
             />
     </FrameLayout>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/translate_box"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="142dp"
-        android:hint="Введите текст"
-        android:textAlignment="center"
-        android:textSize="22sp" />
-</FrameLayout>
+        android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/translate_box"
+                android:layout_width="match_parent"
+                android:layout_height="142dp"
+                android:hint="Введите текст"
+                android:textAlignment="center"
+                android:textSize="22sp" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

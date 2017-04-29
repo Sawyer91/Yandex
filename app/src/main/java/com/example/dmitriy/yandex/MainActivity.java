@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
@@ -28,9 +31,14 @@ import java.text.ParseException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView resultJson;
+    String langJson1;
+    String langJson2;
     EditText newText;
     Button translateButton;
     Editable getText = null;
+    Spinner spinner;
+    Spinner spinner1;
+    String lang[] = {"Русский", "Английский"};
 
 
     @Override
@@ -40,9 +48,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //найдем View-элементы
         resultJson = (TextView) findViewById(R.id.result_json);
         newText = (EditText) findViewById(R.id.translate_box);
-        translateButton = (Button) findViewById(R.id.translate_button);
+        translateButton = (Button) findViewById(R.id.translate_button); // кнопка перевода
+        spinner = (Spinner) findViewById(R.id.lang0); //кнопка(1) выбора языка
+        spinner1 = (Spinner) findViewById(R.id.lang1);//кнопка(2) выбор языка
 
+        //Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lang);
+        //  Определяем разметку для использования при выборе элемента
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner1.setAdapter(adapter);
+        spinner.setAdapter(adapter);
         translateButton.setOnClickListener(this); //обработчик кнопки
+        spinner.setOnItemSelectedListener(itemSelectedListener1);
+        spinner1.setOnItemSelectedListener(itemSelectedListener);
     }
 
     //button "перевести"
@@ -56,12 +75,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //перевод на...
+    AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // Получаем выбранный объект
+            String item = (String) parent.getItemAtPosition(position);
+            // Выбираем язык
+            if (item.equals("Русский")) {
+                langJson1 = "ru";
+            }else {
+                langJson1 = "en";
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+
+    // перевод с...
+    AdapterView.OnItemSelectedListener itemSelectedListener1 = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // Получаем выбранный объект
+            String item = (String) parent.getItemAtPosition(position);
+            // Выбираем язык
+            if (item.equals("Русский")) {
+                langJson2 = "ru";
+            }else {
+                langJson2 = "en";
+            }
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+
+
             //JSON request
     class ParseTask extends AsyncTask<Void, Void, String> {
 
         String apiKey = "trnsl.1.1.20170416T125446Z.ea7102906a1e24fd.547dd8260b51419b081b85120f68bd67ea324b8a";
         String requestUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="
-                + apiKey + "&lang=" + "en-ru" + "&text=" + URLEncoder.encode(String.valueOf(getText), "UTF-8");;
+                + apiKey + "&lang=" + (langJson2 + "-" + langJson1) + "&text=" + URLEncoder.encode(String.valueOf(getText), "UTF-8");;
         String res = "";
         BufferedReader buf = null;
 
@@ -83,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String n1 = System.getProperty("text");
                 while ((l = buf.readLine()) != null) {
                     sb.append(l + n1);
-                }                                           //while close
+                }                                           //"while" close
                 buf.close();
                 res = sb.toString();
                 return res;
@@ -108,9 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 e.printStackTrace();
             }
-
         }
-
     }
 
 
